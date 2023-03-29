@@ -1,6 +1,7 @@
 import { useContext } from 'react'
 import {IoStatsChart} from 'react-icons/io5'
 import { authContext } from '@/lib/store/auth-context'
+import Link from 'next/link'
 
 const Navigation = () => {
   const {user, loading, logout} = useContext(authContext)
@@ -18,7 +19,7 @@ const Navigation = () => {
      {user &&!loading && (
        <nav className="flex items-center gap-4">
        <div>
-         <IoStatsChart size={30} />
+        <a href='#stats'> <IoStatsChart size={30} /></a>
        </div>
        <div>
          <button onClick={logout} className="btn btn-danger">LogOut</button>

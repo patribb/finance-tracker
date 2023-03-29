@@ -4,29 +4,36 @@ import { Modal } from '@/components'
 import { currencyFormatter } from '@/lib/utils'
 import {FaRegTrashAlt} from 'react-icons/fa'
 import { financeContext } from '@/lib/store/finance-context'
+import { authContext } from '@/lib/store/auth-context'
+import { toast } from 'react-toastify'
 
 const AddIncomeModal = ({show, onClose}) => {
     const amountRef = useRef()
     const descriptionRef = useRef()
     const {income, addIncomeItem, removeIncomeItem } = useContext(financeContext)
+    const {user} = useContext(authContext)
 
     const addIncomeHandler = async (e) => {
         e.preventDefault()
-        const newIncome = { amount: +amountRef.current.value, description: descriptionRef.current.value, createdAt: new Date() }
+        const newIncome = { amount: +amountRef.current.value, description: descriptionRef.current.value, createdAt: new Date(), uid: user.uid }
         try {
             await addIncomeItem(newIncome)
             amountRef.current.value = ''
             descriptionRef.current.value = ''  
+            toast.success('Income added successfully')
         } catch (error) {
             console.log(error)
+            toast.error(error.message)
         }
       }
     
       const deleteIncomeHandler = async (incomeId) => {
         try {
             await removeIncomeItem(incomeId)
+            toast.success('Income deleted successfully')
         } catch (error) {
             console.log(error)
+            toast.error(error.message)
         }
       }
 

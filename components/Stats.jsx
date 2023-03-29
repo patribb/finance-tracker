@@ -7,6 +7,7 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 const Stats = ({expenses}) => {
   return (
     <section className='py-6'>
+      <a id='stats' />
       <h3 className='text-2xl font-bold'>Stats</h3>
       <div className='w-1/2 mx-auto'>
         <Doughnut
